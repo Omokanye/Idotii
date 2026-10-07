@@ -1,39 +1,19 @@
-# Idoti
+# Idoti feedback build
 
-Waste management and customer-record software for waste companies.
+Free waste-management ledger for PSP operators, field staff and customers. Drop this folder into the Idotii repo, or open `index.html`.
 
-Idoti helps waste managers move from notebooks and spreadsheets to a central, digital system:
+This is not Dustpan. Dustpan is the waste marketplace. Idoti keeps the customer book: who is on the route, what was collected, what was billed, and what is still owed.
 
-- Register customers by location (name, phone, optional email)
-- Import existing manual records from CSV
-- Track monthly collections, bills and outstanding balances
-- Notify customers of what they owe (email / phone)
-- Central manager dashboard; field workers can register customers on the move
-- Customers never pay to view their records or bills
-- Planned: public APIs so companies can connect Idoti to their own websites
+## Free on purpose
 
-> Idoti is separate from [Dustpan](https://dustpan-mvp.vercel.app) (waste marketplace). Dustpan connects sellers and buyers; Idoti manages the businesses and customers behind collection.
+There is no fee and no access code. Operators, staff and customers can use it and leave feedback. Records stay in this browser until a real database is added. Clearing site data clears the book.
 
-## AI bank statement scan (paid feature)
+## Who it is for
 
-Paid users upload a monthly bank statement (PDF, image or CSV). `api/scan-statement.js` sends it to Claude, which returns incoming credits as JSON (date, payer, amount, reference). The page matches payers to customers and lets the manager review, then apply payments to balances.
+- PSP operator: customers, bills, balances, notices, import, feedback.
+- Field staff: register a stop and record a collection.
+- Customer: look up a bill with the phone on the record. No payment to view it.
 
-Setup (Vercel): add env vars from `.env.example` (`ANTHROPIC_API_KEY`, `PAID_ACCESS_CODE`). The API key stays on the server and is never sent to the browser.
+## Run
 
-Known limits: the access code is a placeholder gate. Replace it with real authentication and billing before launch. Statements contain sensitive financial data, so add consent, retention rules and logging policy before real customers use it.
-
-## Status
-
-Early prototype: static front end with sample data, client-side validation and CSV import preview. No backend yet.
-
-## Run locally
-
-Open `index.html` in a browser, or run `npx serve .`
-
-## Roadmap
-
-1. Auth and roles (manager, field worker)
-2. Database + API (customers, locations, collections, bills, payments)
-3. Notifications (email, SMS)
-4. Public API for company websites
-5. Deploy on Vercel
+Open `index.html`, or deploy the folder on Vercel as a static site.
