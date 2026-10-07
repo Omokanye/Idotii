@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Idoti | Waste management software</title>
+<meta name="description" content="Idoti helps waste companies digitize customer records, collections, bills and outstanding balances.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{--green:#0C4A34;--green2:#14634A;--gold:#C4A574;--cream:#F6F3EC;--ink:#14211b;--mute:#5d6b63;--line:#e0dbcf;--card:#fff;--bad:#a8321f;--ok:#1f7a4d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--cream);line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{background:var(--green);color:var(--cream);position:sticky;top:0;z-index:5}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:.2px;color:var(--cream);text-decoration:none}
+.brand img{width:30px;height:30px}
+nav a{color:var(--cream);opacity:.85;text-decoration:none;margin-left:22px;font-size:14px}
+nav a:hover{opacity:1}
+.btn{display:inline-block;background:var(--gold);color:var(--green);font-weight:600;border:0;border-radius:8px;padding:11px 20px;font-size:15px;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;color:var(--cream);border:1px solid rgba(246,243,236,.45)}
+.btn.dark{background:var(--green);color:var(--cream)}
+.hero{background:linear-gradient(160deg,var(--green) 0%,#093a29 100%);color:var(--cream);padding:84px 0 96px}
+.hero h1{font-size:clamp(32px,5vw,52px);line-height:1.1;margin:0 0 18px;max-width:720px}
+.hero p{font-size:18px;max-width:620px;opacity:.9;margin:0 0 28px}
+.hero .btn+.btn{margin-left:10px}
+section{padding:64px 0}
+h2{font-size:30px;margin:0 0 8px;color:var(--green)}
+.sub{color:var(--mute);margin:0 0 32px;max-width:640px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px}
+.card h3{margin:0 0 6px;font-size:17px;color:var(--green)}
+.card p{margin:0;color:var(--mute);font-size:15px}
+.stats{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:20px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.stat small{color:var(--mute);display:block}
+.stat b{font-size:26px;color:var(--green)}
+.stat b.bad{color:var(--bad)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+input,select{font:inherit;padding:10px 12px;border:1px solid #cfc9ba;border-radius:8px;background:#fff;width:100%}
+input:focus,select:focus{outline:2px solid var(--gold);border-color:var(--green)}
+.bar input,.bar select{width:auto;flex:1;min-width:160px}
+.tablebox{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}
+th{background:#faf8f3;color:var(--mute);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.4px}
+tr:last-child td{border-bottom:0}
+.pill{padding:3px 10px;border-radius:99px;font-size:12.5px;font-weight:600}
+.pill.paid{background:#dff1e7;color:var(--ok)}
+.pill.owing{background:#f8e2dd;color:var(--bad)}
+.two{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 5px}
+label span{font-weight:400;color:var(--mute)}
+.err{color:var(--bad);font-size:13px;min-height:18px;margin-top:3px}
+.msg{margin-top:14px;padding:10px 14px;border-radius:8px;background:#dff1e7;color:var(--ok);display:none}
+.note{font-size:13px;color:var(--mute);margin-top:10px}
+footer{background:var(--green);color:var(--cream);padding:36px 0;font-size:14px}
+footer a{color:var(--gold)}
+.lock{display:inline-block;background:var(--gold);color:var(--green);font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;vertical-align:middle;margin-left:8px}
+.pill.match{background:#dff1e7;color:var(--ok)}.pill.none{background:#f3ead7;color:#7a5b1e}
+@media(max-width:640px){nav{display:none}.hero{padding:56px 0 64px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="#top"><img src="favicon.svg" alt="">Idoti</a>
+  <nav><a href="#features">Features</a><a href="#dashboard">Dashboard</a><a href="#register">Register</a><a href="#import">Import</a><a href="#ai">AI scan</a></nav>
+</div></header>
+
+<main id="top">
+<div class="hero"><div class="wrap">
+  <h1>Run your waste business from one reliable record.</h1>
+  <p>Idoti helps waste companies replace notebooks and spreadsheets with organized customer records, monthly collections, bills and outstanding balances.</p>
+  <a class="btn" href="#register">Register a customer</a><a class="btn ghost" href="#dashboard">View dashboard</a>
+</div></div>
+
+<section id="features"><div class="wrap">
+  <h2>Built for day-to-day operations</h2>
+  <p class="sub">Every record is complete, searchable and in one place, from the field to the manager's desk.</p>
+  <div class="grid">
+    <div class="card"><h3>Customers by location</h3><p>Record name, phone and optional email under each service area.</p></div>
+    <div class="card"><h3>Collections and bills</h3><p>Track monthly pickups, amounts billed and amounts paid.</p></div>
+    <div class="card"><h3>Outstanding balances</h3><p>See who owes what at a glance and notify them by email or phone.</p></div>
+    <div class="card"><h3>Import old records</h3><p>Upload existing CSV or spreadsheet data and go digital quickly.</p></div>
+    <div class="card"><h3>Field-ready</h3><p>Field workers register customers while moving between locations.</p></div>
+    <div class="card"><h3>Free for customers</h3><p>Customers never pay to view their records or monthly bills.</p></div>
+  </div>
+</div></section>
+
+<section id="dashboard" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
+  <h2>Manager dashboard</h2>
+  <p class="sub">Sample data shown. Registered customers appear here instantly.</p>
+  <div class="stats">
+    <div class="stat"><small>Customers</small><b id="sCust">0</b></div>
+    <div class="stat"><small>Billed this month</small><b id="sBill">0</b></div>
+    <div class="stat"><small>Collected</small><b id="sPaid">0</b></div>
+    <div class="stat"><small>Outstanding</small><b class="bad" id="sOwe">0</b></div>
+  </div>
+  <div class="bar">
+    <input id="q" type="search" placeholder="Search name or phone" aria-label="Search customers">
+    <select id="loc" aria-label="Filter by location"><option value="">All locations</option></select>
+    <select id="st" aria-label="Filter by status"><option value="">All statuses</option><option value="owing">Owing</option><option value="paid">Paid</option></select>
+  </div>
+  <div class="tablebox"><table>
+    <thead><tr><th>Customer</th><th>Phone</th><th>Location</th><th>Billed</th><th>Paid</th><th>Balance</th><th>Status</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+</div></section>
+
+<section><div class="wrap two">
+  <div id="register">
+    <h2>Register a customer</h2>
+    <p class="sub">Name, phone and location are required. Email is optional.</p>
+    <form id="f" class="card" novalidate>
+      <label for="n">Full name</label><input id="n" autocomplete="off"><div class="err" id="en"></div>
+      <label for="p">Phone number</label><input id="p" inputmode="tel" placeholder="08012345678"><div class="err" id="ep"></div>
+      <label for="e">Email <span>(optional)</span></label><input id="e" type="email"><div class="err" id="ee"></div>
+      <label for="l">Location</label><input id="l" list="locs" placeholder="e.g. Ikeja"><datalist id="locs"></datalist><div class="err" id="el"></div>
+      <label for="a">Monthly bill <span>(optional)</span></label><input id="a" type="number" min="0" step="100"><div class="err" id="ea"></div>
+      <p style="margin-top:16px"><button class="btn dark" type="submit">Save customer</button></p>
+      <div class="msg" id="ok" role="status"></div>
+    </form>
+  </div>
+  <div id="import">
+    <h2>Import existing records</h2>
+    <p class="sub">Upload a CSV with columns: <code>name, phone, email, location, monthly_bill</code>.</p>
+    <div class="card">
+      <input id="csv" type="file" accept=".csv,text/csv" aria-label="CSV file">
+      <div class="err" id="ec"></div>
+      <div class="msg" id="okc" role="status"></div>
+      <p class="note">Rows missing a name, phone or location, or with an invalid phone or email, are skipped and reported. Nothing leaves your browser in this prototype.</p>
+    </div>
+  </div>
+</div></section>
+<section id="ai" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+  <h2>AI bank statement scan <span class="lock">Paid plan</span></h2>
+  <p class="sub">Upload your monthly bank statement (PDF, image or CSV). Idoti reads it and lists every amount paid into your account, matched to your customers where possible. Always review the results before applying them.</p>
+  <div class="card">
+    <label for="code">Paid plan access code</label><input id="code" type="password" autocomplete="off" placeholder="Provided with your plan">
+    <label for="stmt">Bank statement</label><input id="stmt" type="file" accept=".pdf,.csv,.png,.jpg,.jpeg,.webp,application/pdf,text/csv,image/*">
+    <p style="margin-top:16px"><button class="btn dark" id="scan" type="button">Scan statement</button></p>
+    <div class="err" id="es"></div><div class="msg" id="oks" role="status"></div>
+  </div>
+  <div id="res" style="display:none;margin-top:20px">
+    <div class="stats"><div class="stat"><small>Payments found</small><b id="rN">0</b></div><div class="stat"><small>Total received</small><b id="rT">0</b></div><div class="stat"><small>Unmatched</small><b class="bad" id="rU">0</b></div></div>
+    <div class="tablebox"><table><thead><tr><th>Date</th><th>Paid by</th><th>Amount</th><th>Matched customer</th></tr></thead><tbody id="rrows"></tbody></table></div>
+    <p style="margin-top:14px"><button class="btn dark" id="apply" type="button">Apply matched payments to balances</button></p>
+    <p class="note">AI can misread statements. Check amounts and matches before applying. Unmatched payments are not applied.</p>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <b>Idoti</b>: waste management software. Idoti is a separate product from <a href="https://dustpan-mvp.vercel.app">Dustpan</a>, the waste marketplace.
+</div></footer>
+
+<script>
+const money=n=>"₦"+Number(n).toLocaleString();
+const phoneOk=v=>/^(\+?234|0)[789][01]\d{8}$/.test(v.replace(/[\s-]/g,""));
+const emailOk=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+const norm=v=>v.replace(/[\s-]/g,"");
+let data=[
+ {n:"Adaeze Okafor",p:"08031234567",e:"adaeze@example.com",l:"Ikeja",b:5000,pd:5000},
+ {n:"Tunde Bakare",p:"08122223333",e:"",l:"Yaba",b:4000,pd:0},
+ {n:"Grace Eze",p:"09011112222",e:"grace@example.com",l:"Lekki",b:7500,pd:3000},
+ {n:"Ibrahim Musa",p:"07045556666",e:"",l:"Ikeja",b:5000,pd:0},
+ {n:"Funke Adeyemi",p:"08099887766",e:"funke@example.com",l:"Surulere",b:4500,pd:4500}
+];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function render(){
+  const q=$("q").value.trim().toLowerCase(),l=$("loc").value,s=$("st").value;
+  const rows=data.filter(d=>(!q||d.n.toLowerCase().includes(q)||d.p.includes(q))&&(!l||d.l===l)&&(!s||(s==="owing")===(d.b-d.pd>0)));
+  $("rows").innerHTML=rows.length?rows.map(d=>{const o=d.b-d.pd;return `<tr><td>${esc(d.n)}</td><td>${esc(d.p)}</td><td>${esc(d.l)}</td><td>${money(d.b)}</td><td>${money(d.pd)}</td><td>${money(o)}</td><td><span class="pill ${o>0?"owing":"paid"}">${o>0?"Owing":"Paid"}</span></td></tr>`}).join(""):`<tr><td colspan="7">No customers match your filters.</td></tr>`;
+  $("sCust").textContent=data.length;
+  $("sBill").textContent=money(data.reduce((a,d)=>a+d.b,0));
+  $("sPaid").textContent=money(data.reduce((a,d)=>a+d.pd,0));
+  $("sOwe").textContent=money(data.reduce((a,d)=>a+Math.max(0,d.b-d.pd),0));
+  const locs=[...new Set(data.map(d=>d.l))].sort(),cur=$("loc").value;
+  $("loc").innerHTML='<option value="">All locations</option>'+locs.map(x=>`<option${x===cur?" selected":""}>${esc(x)}</option>`).join("");
+  $("locs").innerHTML=locs.map(x=>`<option value="${esc(x)}">`).join("");
+}
+function validate(r){
+  const er={};
+  if(r.n.length<2)er.n="Enter the customer's full name.";
+  if(!phoneOk(r.p))er.p="Enter a valid Nigerian phone number.";
+  if(r.e&&!emailOk(r.e))er.e="Enter a valid email address or leave it blank.";
+  if(!r.l)er.l="Enter or choose a location.";
+  if(r.b!==""&&(isNaN(r.b)||Number(r.b)<0))er.a="Bill must be zero or more.";
+  if(data.some(d=>norm(d.p)===norm(r.p)))er.p=er.p||"A customer with this phone number already exists.";
+  return er;
+}
+$("f").addEventListener("submit",ev=>{
+  ev.preventDefault();
+  const r={n:$("n").value.trim(),p:$("p").value.trim(),e:$("e").value.trim(),l:$("l").value.trim(),b:$("a").value.trim()};
+  const er=validate(r);
+  ["n","p","e","l","a"].forEach(k=>$("e"+k).textContent=er[k]||"");
+  if(Object.keys(er).length)return;
+  data.unshift({n:r.n,p:norm(r.p),e:r.e,l:r.l,b:Number(r.b||0),pd:0});
+  $("f").reset();$("ok").style.display="block";$("ok").textContent=r.n+" was registered.";
+  render();
+});
+function parseCSV(t){
+  const out=[];let row=[],cell="",q=false;
+  for(let i=0;i<t.length;i++){const c=t[i];
+    if(q){if(c==='"'&&t[i+1]==='"'){cell+='"';i++}else if(c==='"')q=false;else cell+=c}
+    else if(c==='"')q=true;else if(c===","){row.push(cell);cell=""}
+    else if(c==="\n"||c==="\r"){if(c==="\r"&&t[i+1]==="\n")i++;row.push(cell);out.push(row);row=[];cell=""}
+    else cell+=c}
+  if(cell||row.length){row.push(cell);out.push(row)}
+  return out.filter(r=>r.some(x=>x.trim()));
+}
+$("csv").addEventListener("change",async ev=>{
+  const f=ev.target.files[0];$("ec").textContent="";$("okc").style.display="none";
+  if(!f)return;
+  if(f.size>2e6){$("ec").textContent="File is too large (2 MB max).";return}
+  const rows=parseCSV(await f.text());
+  if(rows.length<2){$("ec").textContent="The file has no data rows.";return}
+  const h=rows[0].map(x=>x.trim().toLowerCase()),ix=k=>h.indexOf(k);
+  const miss=["name","phone","location"].filter(k=>ix(k)<0);
+  if(miss.length){$("ec").textContent="Missing required column(s): "+miss.join(", ")+".";return}
+  let added=0;const bad=[];
+  rows.slice(1).forEach((r,i)=>{
+    const g=k=>ix(k)<0?"":(r[ix(k)]||"").trim();
+    const rec={n:g("name"),p:g("phone"),e:g("email"),l:g("location"),b:g("monthly_bill")};
+    const er=validate(rec);
+    if(Object.keys(er).length)bad.push("row "+(i+2));
+    else{data.push({n:rec.n,p:norm(rec.p),e:rec.e,l:rec.l,b:Number(rec.b||0),pd:0});added++}
+  });
+  $("okc").style.display="block";
+  $("okc").textContent=added+" imported."+(bad.length?" Skipped "+bad.length+" ("+bad.slice(0,8).join(", ")+(bad.length>8?", …":"")+").":"");
+  ev.target.value="";render();
+});
+["q","loc","st"].forEach(id=>$(id).addEventListener("input",render));
+let credits=[];
+const digits=v=>String(v).replace(/\D/g,"");
+function matchCust(c){
+  const hay=(c.payer+" "+c.reference).toLowerCase(),hd=digits(c.payer+" "+c.reference);
+  return data.find(d=>{const t=d.n.toLowerCase().split(/\s+/).filter(x=>x.length>2);
+    return (t.length&&t.filter(x=>hay.includes(x)).length>=Math.min(2,t.length))||(d.p.length>=10&&hd.includes(digits(d.p).slice(-10)))})||null;
+}
+function showCredits(){
+  const m=credits.map(c=>({c,m:matchCust(c)}));
+  $("rrows").innerHTML=m.map(x=>`<tr><td>${esc(x.c.date||"-")}</td><td>${esc(x.c.payer||"-")}</td><td>${money(x.c.amount)}</td><td>${x.m?`<span class="pill match">${esc(x.m.n)}</span>`:`<span class="pill none">Unmatched</span>`}</td></tr>`).join("")||`<tr><td colspan="4">No incoming payments found.</td></tr>`;
+  $("rN").textContent=credits.length;$("rT").textContent=money(credits.reduce((a,c)=>a+c.amount,0));
+  $("rU").textContent=m.filter(x=>!x.m).length;$("res").style.display="block";$("apply").disabled=!m.some(x=>x.m);$("apply").dataset.done="";
+  window._m=m;
+}
+$("scan").addEventListener("click",async()=>{
+  const f=$("stmt").files[0],code=$("code").value.trim();
+  $("es").textContent="";$("oks").style.display="none";
+  if(!code){$("es").textContent="Enter your paid plan access code.";return}
+  if(!f){$("es").textContent="Choose a bank statement file first.";return}
+  if(f.size>3e6){$("es").textContent="File is too large (3 MB max).";return}
+  const body={};
+  if(/\.csv$/i.test(f.name)||f.type==="text/csv")body.text=await f.text();
+  else{body.mediaType=f.type||"application/pdf";body.data=await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result.split(",")[1]);r.onerror=()=>no();r.readAsDataURL(f)})}
+  $("scan").disabled=true;$("scan").textContent="Scanning...";
+  try{
+    const r=await fetch("/api/scan-statement",{method:"POST",headers:{"content-type":"application/json","x-access-code":code},body:JSON.stringify(body)});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(j.error||"Scanning is only available on the deployed site (needs the /api route).");
+    credits=j.credits;showCredits();$("oks").style.display="block";$("oks").textContent="Scan complete. Review the results below.";
+  }catch(e){$("es").textContent=e.message}
+  $("scan").disabled=false;$("scan").textContent="Scan statement";
+});
+$("apply").addEventListener("click",()=>{
+  if($("apply").dataset.done)return;
+  let n=0;(window._m||[]).forEach(x=>{if(x.m){x.m.pd+=x.c.amount;n++}});
+  $("apply").dataset.done="1";$("apply").disabled=true;$("oks").style.display="block";$("oks").textContent=n+" payment(s) applied to customer balances.";render();
+});
+render();
+</script>
+</body>
+</html>
