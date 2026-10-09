@@ -269,17 +269,35 @@
         <h2>Company Activation</h2>
         <div class="price-tag">₦100,000 <span>/ lifetime company access</span></div>
         
-        <form>
-          <div class="form-group">
-            <label for="company">Company / PSP Name</label>
-            <input type="text" id="company" placeholder="e.g. CleanCity Waste Ltd">
-          </div>
-          <div class="form-group">
-            <label for="email">Admin Email or Phone</label>
-            <input type="text" id="email" placeholder="admin@cleancity.com">
-          </div>
-          <button type="submit" class="btn">Pay ₦100,000 & Launch App</button>
-        </form>
+        <form id="activationForm" onsubmit="handleActivation(event)">
+  <div class="form-group">
+    <label for="company">Company / PSP Name</label>
+    <input type="text" id="company" placeholder="e.g. CleanCity Waste Ltd" required>
+  </div>
+  <div class="form-group">
+    <label for="email">Admin Email or Phone</label>
+    <input type="text" id="email" placeholder="admin@cleancity.com" required>
+  </div>
+  <button type="submit" class="btn">Pay ₦100,000 & Launch App</button>
+</form>
+
+<script>
+  function handleActivation(e) {
+    e.preventDefault();
+    
+    // Grab the values entered by the user
+    const companyName = document.getElementById('company').value;
+    const adminContact = document.getElementById('email').value;
+    
+    // Save them temporarily so the next page knows who is registering
+    localStorage.setItem('idoti_company', companyName);
+    localStorage.setItem('idoti_admin', adminContact);
+    
+    // Redirect straight to the Staff Onboarding page
+    window.location.href = 'payment-confirmation.html';
+  }
+</script>
+
 
         <div class="free-perk">
            Includes full system unlocking + <strong>Free access to our secondary materials buyer network</strong>.
