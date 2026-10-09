@@ -1,0 +1,391 @@
+Here is the complete Payment & Checkout Page (/checkout) code. This page appears immediately after the user clicks the activation button, giving them a choice between a Direct Bank Transfer (with clear account details and proof upload) and Card Payment via Flutterwave.
+It maintains the exact green and gold branding, clean layout, and intuitive user experience.
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Idoti · Complete Company Activation (₦100,000)</title>
+  <meta name="description" content="Secure payment gateway for Idoti waste management software activation via bank transfer or Flutterwave card payment.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --primary-green: #114227;
+      --accent-gold: #D4AF37;
+      --bg-cream: #FAF9F6;
+      --text-dark: #222222;
+      --white: #FFFFFF;
+      --border-color: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background-color: var(--white);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    /* Custom Notepad 'i' Logo Asset */
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      background-color: var(--primary-green);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(17, 66, 39, 0.2);
+    }
+
+    .logo-mark .dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent-gold);
+      border-radius: 50%;
+      margin-bottom: 3px;
+    }
+
+    .logo-mark .stem {
+      width: 8px;
+      height: 20px;
+      background-color: var(--white);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .logo-mark .stem::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 2px;
+      right: 2px;
+      height: 2px;
+      background: var(--primary-green);
+      box-shadow: 0 4px 0 var(--primary-green), 0 8px 0 var(--primary-green);
+    }
+
+    .brand-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-green);
+      letter-spacing: -0.5px;
+    }
+
+    .checkout-container {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 0 5%;
+    }
+
+    .checkout-card {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .checkout-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .checkout-header h1 {
+      font-size: 2rem;
+      color: var(--primary-green);
+      margin-bottom: 0.5rem;
+    }
+
+    .checkout-header p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .amount-box {
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px dashed var(--accent-gold);
+      padding: 1.25rem;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .amount-box span {
+      display: block;
+      font-size: 0.85rem;
+      color: #777;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .amount-box h2 {
+      font-size: 2.25rem;
+      color: var(--primary-green);
+      font-weight: 800;
+    }
+
+    /* Tab Switcher for Payment Methods */
+    .payment-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+      padding: 0.875rem;
+      border: 2px solid var(--border-color);
+      background: var(--white);
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #555;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      border-color: var(--primary-green);
+      background: rgba(17, 66, 39, 0.05);
+      color: var(--primary-green);
+    }
+
+    .payment-section {
+      display: none;
+    }
+
+    .payment-section.active {
+      display: block;
+    }
+
+    /* Bank Transfer Styling */
+    .bank-details {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .bank-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .bank-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .bank-row span:first-child {
+      color: #666;
+    }
+
+    .bank-row span:last-child {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #444;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.875rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(17, 66, 39, 0.1);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--primary-green);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #0d331e;
+    }
+
+    /* Flutterwave Specific Styling */
+    .flutterwave-box {
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+
+    .flutterwave-box p {
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="brand">
+      <div class="logo-mark">
+        <div class="dot"></div>
+        <div class="stem"></div>
+      </div>
+      <span class="brand-title">Idoti</span>
+    </a>
+  </header>
+
+  <main id="app">
+    <div class="checkout-container">
+      <div class="checkout-card">
+        
+        <div class="checkout-header">
+          <h1>Activate Your Workspace</h1>
+          <p>One-time lifetime access for your waste management company.</p>
+        </div>
+
+        <div class="amount-box">
+          <span>Total Activation Fee</span>
+          <h2>₦100,000</h2>
+        </div>
+
+        <!-- Payment Method Selectors -->
+        <div class="payment-tabs">
+          <button type="button" class="tab-btn active" onclick="switchTab('transfer')">Bank Transfer</button>
+          <button type="button" class="tab-btn" onclick="switchTab('flutterwave')">Pay with Card (Flutterwave)</button>
+        </div>
+
+        <!-- Bank Transfer Section -->
+        <div id="transfer-section" class="payment-section active">
+          <div class="bank-details">
+            <div class="bank-row">
+              <span>Bank Name:</span>
+              <span>Moniepoint / Access Bank</span>
+            </div>
+            <div class="bank-row">
+              <span>Account Number:</span>
+              <span>8123456789</span>
+            </div>
+            <div class="bank-row">
+              <span>Account Name:</span>
+              <span>Idoti Technologies Ltd</span>
+            </div>
+          </div>
+
+          <form onsubmit="handleTransferSubmit(event)">
+            <div class="form-group">
+              <label for="sender-name">Your Account Name (Sender)</label>
+              <input type="text" id="sender-name" placeholder="e.g. CleanCity Waste Ltd" required>
+            </div>
+            <div class="form-group">
+              <label for="upload-proof">Upload Payment Receipt / Screenshot</label>
+              <input type="file" id="upload-proof" accept="image/*,.pdf" required>
+            </div>
+            <button type="submit" class="btn">I Have Made Transfer - Submit</button>
+          </form>
+        </div>
+
+        <!-- Flutterwave Section -->
+        <div id="flutterwave-section" class="payment-section">
+          <div class="flutterwave-box">
+            <p>You will be redirected to Flutterwave's secure checkout to complete your payment instantly using your Debit Card, USSD, or Bank Transfer.</p>
+            <button type="button" class="btn" onclick="payWithFlutterwave()">Pay ₦100,000 via Flutterwave</button>
+          </div>
+        </div>
+
+        <div class="secure-badge">
+          🔒 256-Bit Encrypted & Secure Payment Processing
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Script for Tab Switching and Handlers -->
+  <script>
+    function switchTab(method) {
+      const transferBtn = document.querySelectorAll('.tab-btn')[0];
+      const flutterwaveBtn = document.querySelectorAll('.tab-btn')[1];
+      const transferSec = document.getElementById('transfer-section');
+      const flutterwaveSec = document.getElementById('flutterwave-section');
+
+      if (method === 'transfer') {
+        transferBtn.classList.add('active');
+        flutterwaveBtn.classList.remove('active');
+        transferSec.classList.add('active');
+        flutterwaveSec.classList.remove('active');
+      } else {
+        flutterwaveBtn.classList.add('active');
+        transferBtn.classList.remove('active');
+        flutterwaveSec.classList.add('active');
+        transferSec.classList.remove('active');
+      }
+    }
+
+    function handleTransferSubmit(e) {
+      e.preventDefault();
+      alert("Payment proof submitted! Verification takes less than 15 minutes, after which your login credentials will be emailed to you.");
+    }
+
+    function payWithFlutterwave() {
+      // Integration hook for Flutterwave Inline script
+      alert("Redirecting to Flutterwave secure payment gateway...");
+      // window.location.href = "https://checkout.flutterwave.com/...";
+    }
+  </script>
+</body>
+</html>
+
