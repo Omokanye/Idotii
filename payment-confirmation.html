@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Idoti · Payment Confirmation</title>
+  <meta name="description" content="Payment confirmation page for Idoti waste management software activation.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --primary-green: #114227;
+      --accent-gold: #D4AF37;
+      --bg-cream: #FAF9F6;
+      --text-dark: #222222;
+      --white: #FFFFFF;
+      --border-color: #E2E8F0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background-color: var(--white);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    /* Custom Notepad 'i' Logo Asset */
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      background-color: var(--primary-green);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(17, 66, 39, 0.2);
+    }
+
+    .logo-mark .dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent-gold);
+      border-radius: 50%;
+      margin-bottom: 3px;
+    }
+
+    .logo-mark .stem {
+      width: 8px;
+      height: 20px;
+      background-color: var(--white);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .logo-mark .stem::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 2px;
+      right: 2px;
+      height: 2px;
+      background: var(--primary-green);
+      box-shadow: 0 4px 0 var(--primary-green), 0 8px 0 var(--primary-green);
+    }
+
+    .brand-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-green);
+      letter-spacing: -0.5px;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 5%;
+    }
+
+    .confirmation-card {
+      background: var(--white);
+      padding: 3rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+      max-width: 550px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 70px;
+      height: 70px;
+      background-color: rgba(17, 66, 39, 0.1);
+      color: var(--primary-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .confirmation-card h1 {
+      font-size: 1.75rem;
+      color: var(--primary-green);
+      margin-bottom: 0.5rem;
+    }
+
+    .confirmation-card p {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .receipt-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .receipt-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .receipt-row span:first-child {
+      color: #666;
+    }
+
+    .receipt-row span:last-child {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--primary-green);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #0d331e;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="brand">
+      <div class="logo-mark">
+        <div class="dot"></div>
+        <div class="stem"></div>
+      </div>
+      <span class="brand-title">Idoti</span>
+    </a>
+  </header>
+
+  <main class="main-content">
+    <div class="confirmation-card">
+      <div class="success-icon">✓</div>
+      <h1>Payment Confirmed!</h1>
+      <p>Your ₦100,000 lifetime company activation fee has been processed successfully. Your workspace is now live.</p>
+
+      <div class="receipt-box">
+        <div class="receipt-row">
+          <span>Company Name:</span>
+          <span id="display-company">CleanCity Waste Ltd</span>
+        </div>
+        <div class="receipt-row">
+          <span>Activation Status:</span>
+          <span style="color: var(--primary-green);">Active (Lifetime)</span>
+        </div>
+        <div class="receipt-row">
+          <span>Transaction ID:</span>
+          <span>IDOTI-2026-8942</span>
+        </div>
+      </div>
+
+      <!-- Button leading directly to Staff Onboarding -->
+      <a href="staff-onboarding.html" class="btn">Proceed to Staff Onboarding →</a>
+    </div>
+  </main>
+
+  <script>
+    // Pull the company name saved from the previous index page if available
+    const savedCompany = localStorage.getItem('idoti_company');
+    if (savedCompany) {
+      document.getElementById('display-company').textContent = savedCompany;
+    }
+  </script>
+</body>
+</html>
