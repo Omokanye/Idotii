@@ -3,13 +3,291 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Idoti · Waste management software</title>
-  <meta name="description" content="Free feedback build of Idoti, the waste-management ledger for PSP operators, field staff and customers.">
+  <title>Idoti · Waste Management Software & Ledger for PSP Operators</title>
+  <meta name="description" content="The ultimate waste-management ledger for PSP operators, field staff, and customers. Automate debt tracking, customer billing, and monthly reports for a one-time fee of ₦100,000, plus free connection to waste recyclers and buyers.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --primary-green: #114227;
+      --accent-gold: #D4AF37;
+      --bg-cream: #FAF9F6;
+      --text-dark: #222222;
+      --white: #FFFFFF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background-color: var(--white);
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    /* Logo Styling: Notepad 'i' in Green and Gold */
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      background-color: var(--primary-green);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(17, 66, 39, 0.2);
+    }
+
+    .logo-mark .dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent-gold);
+      border-radius: 50%;
+      margin-bottom: 3px;
+    }
+
+    .logo-mark .stem {
+      width: 8px;
+      height: 20px;
+      background-color: var(--white);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    /* Notepad lines inside the stem */
+    .logo-mark .stem::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 2px;
+      right: 2px;
+      height: 2px;
+      background: var(--primary-green);
+      box-shadow: 0 4px 0 var(--primary-green), 0 8px 0 var(--primary-green);
+    }
+
+    .brand-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-green);
+      letter-spacing: -0.5px;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 4rem auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        margin: 2rem auto;
+      }
+    }
+
+    .hero-content h1 {
+      font-size: 2.75rem;
+      color: var(--primary-green);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: rgba(212, 175, 55, 0.15);
+      color: #9A7B1C;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .features-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .features-list li {
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .features-list li span {
+      color: var(--accent-gold);
+      font-weight: bold;
+    }
+
+    /* Card styling for Login / Package activation */
+    .card {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border: 1px solid #eaeaea;
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      color: var(--primary-green);
+      margin-bottom: 0.5rem;
+    }
+
+    .price-tag {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .price-tag span {
+      font-size: 0.9rem;
+      color: #777;
+      font-weight: normal;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #444;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.875rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(17, 66, 39, 0.1);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--primary-green);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #0d331e;
+    }
+
+    .free-perk {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #eaeaea;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+    }
+
+    .free-perk strong {
+      color: var(--primary-green);
+    }
+  </style>
 </head>
 <body>
-  <div id="app"></div>
+
+  <header>
+    <a href="#" class="brand">
+      <!-- Custom Notepad 'i' Logo Asset -->
+      <div class="logo-mark">
+        <div class="dot"></div>
+        <div class="stem"></div>
+      </div>
+      <span class="brand-title">Idoti</span>
+    </a>
+  </header>
+
+  <main id="app">
+    <section class="hero">
+      <div class="hero-content">
+        <span class="badge">PSP Operator Software</span>
+        <h1>Digitize Your Waste Management Ledger & Operations</h1>
+        <p>Empower your field staff to seamlessly log customer names, collection statuses, and debts in real-time. Say goodbye to manual paper record mix-ups.</p>
+        
+        <ul class="features-list">
+          <div><span>✓</span> Instant mobile debt & payment tracking for field workers</div>
+          <div><span>✓</span> Comprehensive monthly business summaries for owners</div>
+          <div><span>✓</span> <strong>Free Bonus:</strong> Direct connection network to bulk recyclers and waste buyers</div>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Company Activation</h2>
+        <div class="price-tag">₦100,000 <span>/ lifetime company access</span></div>
+        
+        <form>
+          <div class="form-group">
+            <label for="company">Company / PSP Name</label>
+            <input type="text" id="company" placeholder="e.g. CleanCity Waste Ltd">
+          </div>
+          <div class="form-group">
+            <label for="email">Admin Email or Phone</label>
+            <input type="text" id="email" placeholder="admin@cleancity.com">
+          </div>
+          <button type="submit" class="btn">Pay ₦100,000 & Launch App</button>
+        </form>
+
+        <div class="free-perk">
+          🎁 Includes full system unlocking + <strong>Free access to our secondary materials buyer network</strong>.
+        </div>
+      </div>
+    </section>
+  </main>
+
   <script src="app.js"></script>
 </body>
 </html>
